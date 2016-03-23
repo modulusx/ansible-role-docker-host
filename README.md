@@ -17,18 +17,18 @@ Reconfigure dockercompose_dcv in vars/main.yml to install a different version of
 Example Playbook
 ----------------
 
-  - hosts: docker01.example.com
-    become: yes
-    become_method: sudo
-    vars:
-      dockerhost_user: ec2-user
-    roles:
-      - { role: modulusx.docker-host }
+    - hosts: docker01.example.com
+      become: yes
+      become_method: sudo
+      vars:
+        dockerhost_user: ec2-user
+      roles:
+        - { role: modulusx.docker-host }
 
 Example Usage
 -------------
 
-  ansible-playbook --private-key=sshkey.pem -i inventory -u ec2-user docker-host.yml
+    ansible-playbook --private-key=sshkey.pem -i inventory -u ec2-user docker-host.yml
 
 License
 -------
