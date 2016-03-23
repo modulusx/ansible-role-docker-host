@@ -158,7 +158,6 @@ galaxy_info:
   
   galaxy_tags:
     - "docker"
-    - "docker-compose"
 
 dependencies: []
   # List your role dependencies here, one per line.
