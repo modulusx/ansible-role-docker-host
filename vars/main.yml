@@ -1,0 +1,5 @@
+---
+# vars file for ansible-role-docker-host
+
+dockerhost_dcv: "1.6.2"
+dockerhost_dcurl: "https://github.com/docker/compose/releases/download/{{ dockerhost_dcv }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"

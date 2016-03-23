@@ -1,0 +1,6 @@
+---
+# tasks file for ansible-role-docker-host
+
+- name: "Amazon | Installation"
+  include: amazon.yml
+  when: ansible_distribution == "Amazon"
