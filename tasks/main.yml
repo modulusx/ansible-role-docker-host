@@ -1,6 +1,8 @@
 ---
 # tasks file for ansible-role-docker-host
 
-- name: "Amazon | Installation"
-  include: amazon.yml
-  when: ansible_distribution == "Amazon"
+- name: "Include OS Specific Playbook"
+  include: "{{ item }}"
+  with_first_found:
+  - "{{ ansible_distribution | lower }}.yml"
+  - "{{ ansible_os_family | lower }}.yml"

@@ -1,0 +1,29 @@
+- name: "{{ inventory_hostname }} | Installing Docker Repo"
+  lineinfile:
+    dest: /etc/yum.repos.d/Docker.repo
+    create: yes
+    state: present
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^[dockerrepo]', line: '[dockerrepo]' }
+    - { regexp: '^name=', line: 'name=Docker Repository' }
+    - { regexp: '^baseurl=', line: 'baseurl=https://yum.dockerproject.org/repo/main/centos/7/' }
+    - { regexp: '^enabled=', line: 'enabled=1' }
+    - { regexp: '^gpgcheck=', line: 'gpgcheck=1' }
+    - { regexp: '^gpgkey=', line: 'gpgkey=https://yum.dockerproject.org/gpg' }
+
+- name: "{{ inventory_hostname }} | Installing Docker"
+  yum: name=docker-engine update_cache=yes state=latest
+
+- name: "{{ inventory_hostname }} | Starting and Enabling Docker Service"
+  service: name=docker state=started enabled=yes
+
+- name: "{{ inventory_hostname }} | Adding {{ dockerhost_user }} to Docker group"
+  user: name={{ dockerhost_user }} groups=docker append=yes
+
+- name: "{{ inventory_hostname }} | Installing docker-compose for {{ ansible_system }} on {{ ansible_architecture }}"
+  get_url: url={{ dockerhost_dcurl }} dest=/usr/local/bin/docker-compose mode=0755
+
+- name: "{{ inventory_hostname }} | Adding docker-compose to path for all users"
+  lineinfile: dest=/etc/profile.d/dockercompose.sh state=present create=yes line='export PATH=$PATH:/usr/local/bin'
