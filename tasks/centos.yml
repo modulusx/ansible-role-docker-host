@@ -27,3 +27,15 @@
 
 - name: "{{ inventory_hostname }} | Adding docker-compose to path for all users"
   lineinfile: dest=/etc/profile.d/dockercompose.sh state=present create=yes line='export PATH=$PATH:/usr/local/bin'
+
+- name: "{{ inventory_hostname }} | Install python"
+  yum: name=python state=present
+
+- name: "{{ inventory_hostname }} | Enable EPEL Release"
+  yum: name=epel-release state=present
+
+- name: "{{ inventory_hostname }} | Install python-pip"
+  yum: name=python-pip state=present
+
+- name: "{{ inventory_hostname }} | Install docker-py"
+  pip: name=docker-py version=1.8.1
