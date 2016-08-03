@@ -20,10 +20,8 @@ Example Playbook
     - hosts: docker01.example.com
       become: yes
       become_method: sudo
-      vars:
-        dockerhost_user: ec2-user
       roles:
-        - { role: modulusx.docker-host }
+        - { role: modulusx.docker-host, dockerhost_user: ec2-user }
 
 Example Usage
 -------------
