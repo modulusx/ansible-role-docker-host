@@ -1,3 +1,6 @@
+- name: "{{ inventory_hostname }} | Yum Update"
+  yum: name=* update_cache=yes state=latest
+
 - name: "{{ inventory_hostname }} | Installing Docker"
   yum: name=docker update_cache=yes state=latest
 
